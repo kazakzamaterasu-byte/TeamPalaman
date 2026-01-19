@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24/7 Staff Schedule</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.3);
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 0.95em;
+            opacity: 0.8;
+            margin-top: 20px;
+        }
+
+        .content {
+            padding: 50px 40px;
+        }
+
+        .info-section {
+            margin-bottom: 40px;
+        }
+
+        .info-section h2 {
+            color: #2d3748;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+            padding-left: 15px;
+        }
+
+        .shift-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .shift-card {
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .shift-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .shift-card.s1 {
+            background: #fef3c7;
+            color: #92400e;
+            border: 2px solid #f59e0b;
+        }
+
+        .shift-card.s2 {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 2px solid #3b82f6;
+        }
+
+        .shift-card.s3 {
+            background: #e0e7ff;
+            color: #3730a3;
+            border: 2px solid #6366f1;
+        }
+
+        .shift-card.s4 {
+            background: #f3e8ff;
+            color: #6b21a8;
+            border: 2px solid #a855f7;
+        }
+
+        .shift-card .time {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .shift-card .shift-label {
+            font-size: 0.85em;
+            opacity: 0.8;
+        }
+
+        .staff-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .staff-badge {
+            background: #f7fafc;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            color: #2d3748;
+            border: 2px solid #e2e8f0;
+        }
+
+        .month-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .month-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 30px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.3em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .month-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .month-btn:hover::before {
+            left: 100%;
+        }
+
+        .month-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
+        }
+
+        .month-btn:active {
+            transform: translateY(-2px);
+        }
+
+        .month-btn .icon {
+            display: block;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .calendar-container {
+            display: none;
+        }
+
+        .calendar-container.active {
+            display: block;
+            animation: slideIn 0.4s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .back-btn {
+            background: #4a5568;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: background 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #2d3748;
+        }
+
+        .landing-page {
+            display: block;
+        }
+
+        .landing-page.hidden {
+            display: none;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: #e0e0e0;
+            padding: 1px;
+            margin-top: 20px;
+        }
+
+        .day-header {
+            background: #4a5568;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.95em;
+        }
+
+        .day-cell {
+            background: white;
+            min-height: 160px;
+            padding: 10px;
+            position: relative;
+        }
+
+        .day-cell.empty {
+            background: #f7fafc;
+        }
+
+        .date-number {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .shift {
+            margin: 5px 0;
+            padding: 6px 8px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .shift-label-cal {
+            font-weight: 600;
+            font-size: 0.75em;
+        }
+
+        .shift-name {
+            font-weight: 500;
+        }
+
+        .shift.s1-cal {
+            background: #fef3c7;
+            color: #92400e;
+            border-left: 3px solid #f59e0b;
+        }
+
+        .shift.s2-cal {
+            background: #dbeafe;
+            color: #1e40af;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .shift.s3-cal {
+            background: #e0e7ff;
+            color: #3730a3;
+            border-left: 3px solid #6366f1;
+        }
+
+        .shift.s4-cal {
+            background: #f3e8ff;
+            color: #6b21a8;
+            border-left: 3px solid #a855f7;
+        }
+
+        .off-day {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 6px 8px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            font-weight: 600;
+            text-align: center;
+            border-left: 3px solid #dc2626;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .month-btn {
+                font-size: 1.1em;
+                padding: 20px 25px;
+            }
+
+            .day-cell {
+                min-height: 120px;
+                padding: 6px;
+            }
+
+            .shift {
+                font-size: 0.75em;
+                padding: 4px 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Landing Page -->
+        <div class="landing-page" id="landingPage">
+            <div class="header">
+                <h1>📅 24/7 Staff Schedule</h1>
+                <p>6-Hour Fixed Shifts</p>
+                <div class="subtitle">Organized shift management for your team</div>
+            </div>
+            
+            <div class="content">
+                <div class="info-section">
+                    <h2>Shift Times</h2>
+                    <div class="shift-info">
+                        <div class="shift-card s1">
+                            <div class="time">6AM - 12NN</div>
+                            <div class="shift-label">Morning Shift</div>
+                        </div>
+                        <div class="shift-card s2">
+                            <div class="time">12NN - 6PM</div>
+                            <div class="shift-label">Afternoon Shift</div>
+                        </div>
+                        <div class="shift-card s3">
+                            <div class="time">6PM - 12MN</div>
+                            <div class="shift-label">Evening Shift</div>
+                        </div>
+                        <div class="shift-card s4">
+                            <div class="time">12MN - 6AM</div>
+                            <div class="shift-label">Night Shift</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h2>Team Members</h2>
+                    <div class="staff-list">
+                        <div class="staff-badge">👤 Junry</div>
+                        <div class="staff-badge">👤 Chabi</div>
+                        <div class="staff-badge">👤 Cinco</div>
+                        <div class="staff-badge">👤 Bro2x</div>
+                        <div class="staff-badge">👤 RV (Reliever)</div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h2>Select Month to View Schedule</h2>
+                    <div class="month-buttons">
+                        <button class="month-btn" onclick="showCalendar('january')">
+                            <span class="icon">📆</span>
+                            January 2026
+                        </button>
+                        <button class="month-btn" onclick="showCalendar('february')">
+                            <span class="icon">📅</span>
+                            February 2026
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- January Calendar -->
+        <div class="calendar-container" id="januaryCalendar">
+            <div class="header">
+                <h1>January 2026</h1>
+                <p>24/7 Staff Schedule</p>
+            </div>
+            <div class="content">
+                <button class="back-btn" onclick="showLanding()">← Back to Main Menu</button>
+                <div class="calendar" id="janCalendarGrid"></div>
+            </div>
+        </div>
+
+        <!-- February Calendar -->
+        <div class="calendar-container" id="februaryCalendar">
+            <div class="header">
+                <h1>February 2026</h1>
+                <p>24/7 Staff Schedule</p>
+            </div>
+            <div class="content">
+                <button class="back-btn" onclick="showLanding()">← Back to Main Menu</button>
+                <div class="calendar" id="febCalendarGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const januaryData = [
+            // Days before schedule starts (Jan 1-21)
+            ...Array(21).fill(null).map((_, i) => ({
+                date: i + 1,
+                off: null,
+                s1: '-',
+                s2: '-',
+                s3: '-',
+                s4: '-'
+            })),
+            // Actual schedule (Jan 22-31)
+            { date: 22, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 23, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 24, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 25, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 26, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 27, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 28, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
+            { date: 29, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
+            { date: 30, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' },
+            { date: 31, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' }
+        ];
+
+        const februaryData = [
+            { date: 1, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 2, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 3, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 4, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 5, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 6, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 7, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
+            { date: 8, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
+            { date: 9, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' },
+            { date: 10, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' },
+            { date: 11, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 12, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 13, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 14, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 15, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 16, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 17, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
+            { date: 18, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
+            { date: 19, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' },
+            { date: 20, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' },
+            { date: 21, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 22, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 23, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 24, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 25, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 26, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
+            { date: 27, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
+            { date: 28, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' }
+        ];
+
+        function generateCalendar(containerId, data, startDay) {
+            const container = document.getElementById(containerId);
+            let html = `
+                <div class="day-header">Sunday</div>
+                <div class="day-header">Monday</div>
+                <div class="day-header">Tuesday</div>
+                <div class="day-header">Wednesday</div>
+                <div class="day-header">Thursday</div>
+                <div class="day-header">Friday</div>
+                <div class="day-header">Saturday</div>
+            `;
+
+            // Add empty cells before first day
+            for (let i = 0; i < startDay; i++) {
+                html += '<div class="day-cell empty"></div>';
+            }
+
+            // Add data cells
+            data.forEach(day => {
+                html += `
+                    <div class="day-cell">
+                        <div class="date-number">${day.date}</div>
+                        ${day.off ? `<div class="off-day">OFF: ${day.off}</div>` : ''}
+                        <div class="shift s1-cal"><span class="shift-label-cal">6AM:</span> <span class="shift-name">${day.s1}</span></div>
+                        <div class="shift s2-cal"><span class="shift-label-cal">12NN:</span> <span class="shift-name">${day.s2}</span></div>
+                        <div class="shift s3-cal"><span class="shift-label-cal">6PM:</span> <span class="shift-name">${day.s3}</span></div>
+                        <div class="shift s4-cal"><span class="shift-label-cal">12MN:</span> <span class="shift-name">${day.s4}</span></div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function showCalendar(month) {
+            document.getElementById('landingPage').classList.add('hidden');
+            document.getElementById('januaryCalendar').classList.remove('active');
+            document.getElementById('februaryCalendar').classList.remove('active');
+
+            if (month === 'january') {
+                document.getElementById('januaryCalendar').classList.add('active');
+            } else if (month === 'february') {
+                document.getElementById('februaryCalendar').classList.add('active');
+            }
+        }
+
+        function showLanding() {
+            document.getElementById('landingPage').classList.remove('hidden');
+            document.getElementById('januaryCalendar').classList.remove('active');
+            document.getElementById('februaryCalendar').classList.remove('active');
+        }
+
+        // Generate calendars on load
+        generateCalendar('janCalendarGrid', januaryData, 3); // January 1, 2026 is Wednesday (3)
+        generateCalendar('febCalendarGrid', februaryData, 0); // February 1, 2026 is Sunday (0)
+    </script>
+</body>
+</html>
