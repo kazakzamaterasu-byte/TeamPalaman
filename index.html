@@ -483,113 +483,22 @@
         }
 
         /* Tablet screens */
-        @media (max-width: 1024px) {
-            body {
-                padding: 15px;
-            }
-
-            .header {
-                padding: 40px 30px;
-            }
-
+         @media (max-width: 600px) {
             .header h1 {
-                font-size: 2.2em;
-            }
-
-            .content {
-                padding: 40px 30px;
-            }
-
-            .calendar {
-                gap: 2px;
-            }
-            
-            .day-cell {
-                min-height: 140px;
-                padding: 8px;
-            }
-            
-            .shift {
-                font-size: 0.75em;
-                padding: 4px 6px;
-            }
-
-            .day-header {
-                padding: 12px 8px;
-                font-size: 0.85em;
-            }
-        }
-
-        /* Mobile landscape and small tablets */
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            .container {
-                border-radius: 16px;
-            }
-
-            .header {
-                padding: 30px 20px;
-            }
-
-            .header h1 {
-                font-size: 1.8em;
+                font-size: 2em;
             }
 
             .header p {
                 font-size: 1em;
             }
 
-            .header .subtitle {
-                font-size: 0.85em;
-            }
-
             .content {
-                padding: 25px 15px;
-            }
-
-            .info-section h2 {
-                font-size: 1.3em;
-                margin-bottom: 15px;
-            }
-
-            .shift-info {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-
-            .shift-card {
-                padding: 15px 10px;
-            }
-
-            .shift-card .time {
-                font-size: 0.95em;
-            }
-
-            .shift-card .shift-label {
-                font-size: 0.75em;
-            }
-
-            .staff-badge {
-                padding: 8px 15px;
-                font-size: 0.9em;
-            }
-
-            .month-buttons {
-                grid-template-columns: 1fr;
-                gap: 15px;
+                padding: 30px 20px;
             }
 
             .month-btn {
                 font-size: 1.1em;
                 padding: 20px 25px;
-            }
-
-            .month-btn .icon {
-                font-size: 1.5em;
-                margin-bottom: 8px;
             }
 
             .day-cell {
@@ -598,231 +507,34 @@
             }
 
             .shift {
-                font-size: 0.7em;
+                font-size: 0.75em;
                 padding: 4px 6px;
-                margin: 3px 0;
             }
+    .calendar-wrapper {
+        padding-bottom: 10px;
+    }
 
-            .shift-label-cal {
-                font-size: 0.7em;
-            }
+    .calendar-wrapper::-webkit-scrollbar {
+        height: 6px;
+    }
 
-            .off-day {
-                font-size: 0.75em;
-                padding: 5px 6px;
-            }
+    .calendar-wrapper::-webkit-scrollbar-thumb {
+        background: #cbd5e0;
+        border-radius: 4px;
+    }
+    .calendar-nav {
+        flex-direction: column;
+        align-items: stretch;
+    }
 
-            .date-number {
-                font-size: 1em;
-                margin-bottom: 5px;
-            }
+    .month-nav-center {
+        justify-content: center;
+    }
 
-            .day-header {
-                padding: 10px 5px;
-                font-size: 0.75em;
-            }
+    .back-btn {
+        align-self: flex-start;
+    }
 
-            .back-btn, .nav-btn {
-                padding: 10px 20px;
-                font-size: 0.9em;
-            }
-
-            .calendar-nav {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 10px;
-            }
-
-            .month-nav-center {
-                justify-content: center;
-            }
-
-            .back-btn {
-                align-self: flex-start;
-            }
-
-            .calendar-wrapper {
-                padding-bottom: 10px;
-            }
-
-            .calendar-wrapper::-webkit-scrollbar {
-                height: 6px;
-            }
-
-            .calendar-wrapper::-webkit-scrollbar-thumb {
-                background: rgba(0, 163, 255, 0.3);
-                border-radius: 4px;
-            }
-        }
-
-        /* Small mobile phones */
-        @media (max-width: 480px) {
-            body {
-                padding: 5px;
-            }
-
-            .header {
-                padding: 20px 15px;
-            }
-
-            .header h1 {
-                font-size: 1.5em;
-                margin-bottom: 8px;
-            }
-
-            .header p {
-                font-size: 0.9em;
-            }
-
-            .header .subtitle {
-                font-size: 0.75em;
-                margin-top: 15px;
-            }
-
-            .content {
-                padding: 20px 10px;
-            }
-
-            .info-section {
-                margin-bottom: 25px;
-            }
-
-            .info-section h2 {
-                font-size: 1.1em;
-                margin-bottom: 12px;
-                padding-left: 10px;
-            }
-
-            .shift-info {
-                grid-template-columns: 1fr;
-                gap: 8px;
-            }
-
-            .shift-card {
-                padding: 12px 10px;
-            }
-
-            .shift-card .time {
-                font-size: 0.9em;
-            }
-
-            .shift-card .shift-label {
-                font-size: 0.7em;
-            }
-
-            .staff-list {
-                gap: 8px;
-            }
-
-            .staff-badge {
-                padding: 8px 12px;
-                font-size: 0.85em;
-            }
-
-            .month-btn {
-                font-size: 1em;
-                padding: 18px 20px;
-            }
-
-            .month-btn .icon {
-                font-size: 1.3em;
-                margin-bottom: 5px;
-            }
-
-            .day-cell {
-                min-height: 110px;
-                padding: 5px;
-            }
-
-            .shift {
-                font-size: 0.65em;
-                padding: 3px 5px;
-                margin: 2px 0;
-                border-left-width: 2px;
-            }
-
-            .shift-label-cal {
-                font-size: 0.65em;
-            }
-
-            .shift-name {
-                font-size: 0.95em;
-            }
-
-            .off-day {
-                font-size: 0.7em;
-                padding: 4px 5px;
-                border-left-width: 2px;
-            }
-
-            .date-number {
-                font-size: 0.95em;
-                margin-bottom: 4px;
-            }
-
-            .day-header {
-                padding: 8px 3px;
-                font-size: 0.65em;
-            }
-
-            .back-btn, .nav-btn {
-                padding: 8px 15px;
-                font-size: 0.85em;
-            }
-
-            .calendar {
-                gap: 1px;
-            }
-        }
-
-        /* Extra small devices */
-        @media (max-width: 360px) {
-            .header h1 {
-                font-size: 1.3em;
-            }
-
-            .header p {
-                font-size: 0.85em;
-            }
-
-            .shift-card .time {
-                font-size: 0.85em;
-            }
-
-            .staff-badge {
-                font-size: 0.8em;
-                padding: 6px 10px;
-            }
-
-            .month-btn {
-                font-size: 0.95em;
-                padding: 15px 18px;
-            }
-
-            .day-cell {
-                min-height: 100px;
-                padding: 4px;
-            }
-
-            .shift {
-                font-size: 0.6em;
-                padding: 2px 4px;
-            }
-
-            .off-day {
-                font-size: 0.65em;
-                padding: 3px 4px;
-            }
-
-            .date-number {
-                font-size: 0.9em;
-            }
-
-            .day-header {
-                padding: 6px 2px;
-                font-size: 0.6em;
-            }
-        }
     </style>
 </head>
 <body>
@@ -1186,6 +898,7 @@ generateCalendar('marCalendarGrid', marchData, 0);
 
 </body>
 </html>
+
 
 
 
