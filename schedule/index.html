@@ -71,6 +71,7 @@
             padding: 50px 40px;
         }
 
+
         .info-section {
             margin-bottom: 40px;
         }
@@ -207,6 +208,11 @@
         .calendar-container {
             display: none;
         }
+	.calendar-wrapper {
+    	width: 100%;
+    	overflow-x: auto;
+    	-webkit-overflow-scrolling: touch;
+	}
 
         .calendar-container.active {
             display: block;
@@ -257,6 +263,54 @@
             padding: 1px;
             margin-top: 20px;
         }
+
+.calendar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.month-nav-center {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-btn {
+    background: #667eea;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.nav-btn:hover {
+    background: #5a67d8;
+}
+
+.month-select {
+    padding: 10px;
+    border-radius: 6px;
+    border: 2px solid #cbd5e0;
+    font-weight: 600;
+}
+
+.back-btn {
+    background: #4a5568;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.back-btn:hover {
+    background: #2d3748;
+}
 
         .day-header {
             background: #4a5568;
@@ -339,7 +393,7 @@
             border-left: 3px solid #dc2626;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 600px) {
             .header h1 {
                 font-size: 2em;
             }
@@ -366,6 +420,30 @@
                 font-size: 0.75em;
                 padding: 4px 6px;
             }
+    .calendar-wrapper {
+        padding-bottom: 10px;
+    }
+
+    .calendar-wrapper::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .calendar-wrapper::-webkit-scrollbar-thumb {
+        background: #cbd5e0;
+        border-radius: 4px;
+    }
+    .calendar-nav {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .month-nav-center {
+        justify-content: center;
+    }
+
+    .back-btn {
+        align-self: flex-start;
+    }
         }
     </style>
 </head>
@@ -429,141 +507,232 @@
             </div>
         </div>
 
-        <!-- January Calendar -->
-        <div class="calendar-container" id="januaryCalendar">
-            <div class="header">
-                <h1>January 2026</h1>
-                <p>24/7 Staff Schedule</p>
-            </div>
-            <div class="content">
-                <button class="back-btn" onclick="showLanding()">← Back to Main Menu</button>
-                <div class="calendar" id="janCalendarGrid"></div>
-            </div>
-        </div>
-
-        <!-- February Calendar -->
-        <div class="calendar-container" id="februaryCalendar">
-            <div class="header">
-                <h1>February 2026</h1>
-                <p>24/7 Staff Schedule</p>
-            </div>
-            <div class="content">
-                <button class="back-btn" onclick="showLanding()">← Back to Main Menu</button>
-                <div class="calendar" id="febCalendarGrid"></div>
-            </div>
-        </div>
+<!-- January Calendar -->
+<div class="calendar-container" id="januaryCalendar">
+    <div class="header">
+        <h1>January 2026</h1>
+        <p>24/7 Staff Schedule</p>
     </div>
 
-    <script>
-        const januaryData = [
-            // Days before schedule starts (Jan 1-21)
-            ...Array(21).fill(null).map((_, i) => ({
-                date: i + 1,
-                off: null,
-                s1: '-',
-                s2: '-',
-                s3: '-',
-                s4: '-'
-            })),
-            // Actual schedule (Jan 22-31)
-            { date: 22, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 23, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 24, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 25, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 26, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 27, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 28, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
-            { date: 29, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
-            { date: 30, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' },
-            { date: 31, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' }
-        ];
+    <div class="content">
+        <div class="calendar-nav">
+            <button class="back-btn" onclick="showLanding()">Home</button>
 
-        const februaryData = [
-            { date: 1, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 2, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 3, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 4, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 5, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 6, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 7, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
-            { date: 8, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
-            { date: 9, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' },
-            { date: 10, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' },
-            { date: 11, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 12, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 13, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 14, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 15, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 16, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 17, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
-            { date: 18, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
-            { date: 19, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' },
-            { date: 20, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' },
-            { date: 21, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 22, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 23, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 24, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 25, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 26, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
-            { date: 27, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
-            { date: 28, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' }
-        ];
+            <div class="month-nav-center">
+                <button class="nav-btn prev" onclick="prevMonth()">⬅</button>
 
-        function generateCalendar(containerId, data, startDay) {
-            const container = document.getElementById(containerId);
-            let html = `
-                <div class="day-header">Sunday</div>
-                <div class="day-header">Monday</div>
-                <div class="day-header">Tuesday</div>
-                <div class="day-header">Wednesday</div>
-                <div class="day-header">Thursday</div>
-                <div class="day-header">Friday</div>
-                <div class="day-header">Saturday</div>
-            `;
+                <select class="month-select" onchange="jumpToMonth(this.value)">
+                    <option value="january">January 2026</option>
+                    <option value="february">February 2026</option>
+                </select>
 
-            // Add empty cells before first day
-            for (let i = 0; i < startDay; i++) {
-                html += '<div class="day-cell empty"></div>';
-            }
+                <button class="nav-btn next" onclick="nextMonth()">➡</button>
+            </div>
+        </div>
 
-            // Add data cells
-            data.forEach(day => {
-                html += `
-                    <div class="day-cell">
-                        <div class="date-number">${day.date}</div>
-                        ${day.off ? `<div class="off-day">OFF: ${day.off}</div>` : ''}
-                        <div class="shift s1-cal"><span class="shift-label-cal">6AM:</span> <span class="shift-name">${day.s1}</span></div>
-                        <div class="shift s2-cal"><span class="shift-label-cal">12NN:</span> <span class="shift-name">${day.s2}</span></div>
-                        <div class="shift s3-cal"><span class="shift-label-cal">6PM:</span> <span class="shift-name">${day.s3}</span></div>
-                        <div class="shift s4-cal"><span class="shift-label-cal">12MN:</span> <span class="shift-name">${day.s4}</span></div>
-                    </div>
-                `;
-            });
+        <div class="calendar-wrapper">
+            <div class="calendar" id="janCalendarGrid"></div>
+        </div>
+    </div>
+</div>
 
-            container.innerHTML = html;
-        }
 
-        function showCalendar(month) {
-            document.getElementById('landingPage').classList.add('hidden');
-            document.getElementById('januaryCalendar').classList.remove('active');
-            document.getElementById('februaryCalendar').classList.remove('active');
+<!-- February Calendar -->
+<div class="calendar-container" id="februaryCalendar">
+    <div class="header">
+        <h1>February 2026</h1>
+        <p>24/7 Staff Schedule</p>
+    </div>
 
-            if (month === 'january') {
-                document.getElementById('januaryCalendar').classList.add('active');
-            } else if (month === 'february') {
-                document.getElementById('februaryCalendar').classList.add('active');
-            }
-        }
+    <div class="content">
+        <div class="calendar-nav">
+            <button class="back-btn" onclick="showLanding()">Home</button>
 
-        function showLanding() {
-            document.getElementById('landingPage').classList.remove('hidden');
-            document.getElementById('januaryCalendar').classList.remove('active');
-            document.getElementById('februaryCalendar').classList.remove('active');
-        }
+            <div class="month-nav-center">
+                <button class="nav-btn prev" onclick="prevMonth()">⬅</button>
 
-        // Generate calendars on load
-        generateCalendar('janCalendarGrid', januaryData, 3); // January 1, 2026 is Wednesday (3)
-        generateCalendar('febCalendarGrid', februaryData, 0); // February 1, 2026 is Sunday (0)
-    </script>
+                <select class="month-select" onchange="jumpToMonth(this.value)">
+                    <option value="january">January 2026</option>
+                    <option value="february">February 2026</option>
+                </select>
+
+                <button class="nav-btn next" onclick="nextMonth()">➡</button>
+            </div>
+        </div>
+
+        <div class="calendar-wrapper">
+            <div class="calendar" id="febCalendarGrid"></div>
+        </div>
+    </div>
+</div>
+
+
+
+  <script>
+/* =========================
+   MONTH NAVIGATION LOGIC
+========================= */
+
+const months = ['january', 'february'];
+let currentMonthIndex = 0;
+
+function showMonthByIndex(index) {
+    currentMonthIndex = index;
+
+    // Hide landing page
+    document.getElementById('landingPage').classList.add('hidden');
+
+    // Hide all calendars
+    months.forEach(m => {
+        document.getElementById(m + 'Calendar').classList.remove('active');
+    });
+
+    // Show selected calendar
+    document.getElementById(months[index] + 'Calendar').classList.add('active');
+
+    // Sync dropdowns
+    document.querySelectorAll('.month-select').forEach(select => {
+        select.value = months[index];
+    });
+
+    // Enable all nav buttons first
+    document.querySelectorAll('.nav-btn').forEach(btn => btn.disabled = false);
+
+    // Disable Previous on first month
+    if (currentMonthIndex === 0) {
+        document.querySelectorAll('.nav-btn.prev').forEach(btn => btn.disabled = true);
+    }
+
+    // Disable Next on last month
+    if (currentMonthIndex === months.length - 1) {
+        document.querySelectorAll('.nav-btn.next').forEach(btn => btn.disabled = true);
+    }
+}
+
+function nextMonth() {
+    if (currentMonthIndex < months.length - 1) {
+        showMonthByIndex(currentMonthIndex + 1);
+    }
+}
+
+function prevMonth() {
+    if (currentMonthIndex > 0) {
+        showMonthByIndex(currentMonthIndex - 1);
+    }
+}
+
+function jumpToMonth(month) {
+    const index = months.indexOf(month);
+    if (index !== -1) {
+        showMonthByIndex(index);
+    }
+}
+
+function showCalendar(month) {
+    jumpToMonth(month);
+}
+
+function showLanding() {
+    document.getElementById('landingPage').classList.remove('hidden');
+    months.forEach(m => {
+        document.getElementById(m + 'Calendar').classList.remove('active');
+    });
+}
+
+/* =========================
+   CALENDAR DATA
+========================= */
+
+const januaryData = [
+    ...Array(21).fill(null).map((_, i) => ({
+        date: i + 1, off: null, s1: '-', s2: '-', s3: '-', s4: '-'
+    })),
+    { date: 22, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 23, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 24, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 25, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 26, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 27, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 28, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
+    { date: 29, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
+    { date: 30, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' },
+    { date: 31, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' }
+];
+
+const februaryData = [
+    { date: 1, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 2, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 3, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 4, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 5, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 6, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 7, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
+    { date: 8, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
+    { date: 9, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' },
+    { date: 10, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' },
+    { date: 11, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 12, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 13, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 14, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 15, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 16, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 17, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
+    { date: 18, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
+    { date: 19, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' },
+    { date: 20, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' },
+    { date: 21, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 22, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 23, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 24, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 25, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 26, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 27, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
+    { date: 28, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' }
+];
+
+/* =========================
+   CALENDAR GENERATION
+========================= */
+
+function generateCalendar(containerId, data, startDay) {
+    const container = document.getElementById(containerId);
+    let html = `
+        <div class="day-header">Sunday</div>
+        <div class="day-header">Monday</div>
+        <div class="day-header">Tuesday</div>
+        <div class="day-header">Wednesday</div>
+        <div class="day-header">Thursday</div>
+        <div class="day-header">Friday</div>
+        <div class="day-header">Saturday</div>
+    `;
+
+    for (let i = 0; i < startDay; i++) {
+        html += '<div class="day-cell empty"></div>';
+    }
+
+    data.forEach(day => {
+        html += `
+            <div class="day-cell">
+                <div class="date-number">${day.date}</div>
+                ${day.off ? `<div class="off-day">OFF: ${day.off}</div>` : ''}
+                <div class="shift s1-cal"><span class="shift-label-cal">6AM:</span> ${day.s1}</div>
+                <div class="shift s2-cal"><span class="shift-label-cal">12NN:</span> ${day.s2}</div>
+                <div class="shift s3-cal"><span class="shift-label-cal">6PM:</span> ${day.s3}</div>
+                <div class="shift s4-cal"><span class="shift-label-cal">12MN:</span> ${day.s4}</div>
+            </div>
+        `;
+    });
+
+    container.innerHTML = html;
+}
+
+/* =========================
+   INIT
+========================= */
+
+generateCalendar('janCalendarGrid', januaryData, 4);
+generateCalendar('febCalendarGrid', februaryData, 0);
+</script>
+
 </body>
 </html>
