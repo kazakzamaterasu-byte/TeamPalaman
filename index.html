@@ -602,95 +602,52 @@
         </div>
 
 <!-- January Calendar -->
-<div class="calendar-container" id="januaryCalendar">
-    <div class="header">
-        <h1>January 2026</h1>
-        <p>24/7 Staff Schedule</p>
+<div class="calendar-row">
+
+  <!-- January Calendar -->
+  <div class="calendar-container" id="januaryCalendar">
+    <div class="calendar-nav">
+      <button class="back-btn" onclick="showLanding()">Home</button>
+      <select class="month-select" onchange="jumpToMonth(this.value)">
+        <option value="january">January 2026</option>
+        <option value="february">February 2026</option>
+        <option value="march">March 2026</option>
+      </select>
+      <button class="nav-btn" onclick="nextMonth()">➡</button>
     </div>
+    <div class="calendar" id="janCalendarGrid"></div>
+  </div>
 
-    <div class="content">
-        <div class="calendar-nav">
-            <button class="back-btn" onclick="showLanding()">Home</button>
-
-            <div class="month-nav-center">
-                <button class="nav-btn prev" onclick="prevMonth()">⬅</button>
-
-                <select class="month-select" onchange="jumpToMonth(this.value)">
-                    <option value="january">January 2026</option>
-                    <option value="february">February 2026</option>
-                     <option value="february">March 2026</option>
-                </select>
-
-                <button class="nav-btn next" onclick="nextMonth()">➡</button>
-            </div>
-        </div>
-
-        <div class="calendar-wrapper">
-            <div class="calendar" id="janCalendarGrid"></div>
-        </div>
+  <!-- February Calendar -->
+  <div class="calendar-container" id="februaryCalendar">
+    <div class="calendar-nav">
+      <button class="back-btn" onclick="showLanding()">Home</button>
+      <select class="month-select" onchange="jumpToMonth(this.value)">
+        <option value="january">January 2026</option>
+        <option value="february">February 2026</option>
+        <option value="march">March 2026</option>
+      </select>
+      <button class="nav-btn" onclick="nextMonth()">➡</button>
     </div>
+    <div class="calendar" id="febCalendarGrid"></div>
+  </div>
+
+  <!-- March Calendar -->
+  <div class="calendar-container" id="marchCalendar">
+    <div class="calendar-nav">
+      <button class="back-btn" onclick="showLanding()">Home</button>
+      <select class="month-select" onchange="jumpToMonth(this.value)">
+        <option value="january">January 2026</option>
+        <option value="february">February 2026</option>
+        <option value="march">March 2026</option>
+      </select>
+      <button class="nav-btn" onclick="nextMonth()">➡</button>
+    </div>
+    <div class="calendar" id="marCalendarGrid"></div>
+  </div>
+
 </div>
 
-
-<!-- February Calendar -->
-<div class="calendar-container" id="februaryCalendar">
-    <div class="header">
-        <h1>February 2026</h1>
-        <p>24/7 Staff Schedule</p>
-    </div>
-
-    <div class="content">
-        <div class="calendar-nav">
-            <button class="back-btn" onclick="showLanding()">Home</button>
-
-            <div class="month-nav-center">
-                <button class="nav-btn prev" onclick="prevMonth()">⬅</button>
-
-                <select class="month-select" onchange="jumpToMonth(this.value)">
-                    <option value="january">January 2026</option>
-                    <option value="february">February 2026</option>
-                     <option value="february">March 2026</option>
-                </select>
-
-                <button class="nav-btn next" onclick="nextMonth()">➡</button>
-            </div>
-        </div>
-
-        <div class="calendar-wrapper">
-            <div class="calendar" id="febCalendarGrid"></div>
-        </div>
-    </div>
-</div>
-
-<!-- March Calendar -->
-<div class="calendar-container" id="marchCalendar">
-    <div class="header">
-        <h1>March 2026</h1>
-        <p>24/7 Staff Schedule</p>
-    </div>
-
-    <div class="content">
-        <div class="calendar-nav">
-            <button class="back-btn" onclick="showLanding()">Home</button>
-
-            <div class="month-nav-center">
-                <button class="nav-btn prev" onclick="prevMonth()">⬅</button>
-
-                <select class="month-select" onchange="jumpToMonth(this.value)">
-                    <option value="january">January 2026</option>
-                    <option value="february">February 2026</option>
-                     <option value="march">March 2026</option>
-                </select>
-
-                <button class="nav-btn next" onclick="nextMonth()">➡</button>
-            </div>
-        </div>
-
-        <div class="calendar-wrapper">
-            <div class="calendar" id="marCalendarGrid"></div>
-        </div>
-    </div>
-</div>
 
 
 
@@ -898,6 +855,7 @@ generateCalendar('marCalendarGrid', marchData, 0);
 
 </body>
 </html>
+
 
 
 
