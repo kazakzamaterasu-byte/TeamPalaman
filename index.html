@@ -501,6 +501,10 @@
                         <button class="month-btn" onclick="showCalendar('february')">
                             <span class="icon">📅</span>
                             February 2026
+                        </button>	
+                        <button class="month-btn" onclick="showCalendar('march')">
+                            <span class="icon">📅</span>
+                            March 2026
                         </button>
                     </div>
                 </div>
@@ -524,6 +528,7 @@
                 <select class="month-select" onchange="jumpToMonth(this.value)">
                     <option value="january">January 2026</option>
                     <option value="february">February 2026</option>
+                     <option value="february">March 2026</option>
                 </select>
 
                 <button class="nav-btn next" onclick="nextMonth()">➡</button>
@@ -554,6 +559,7 @@
                 <select class="month-select" onchange="jumpToMonth(this.value)">
                     <option value="january">January 2026</option>
                     <option value="february">February 2026</option>
+                     <option value="february">March 2026</option>
                 </select>
 
                 <button class="nav-btn next" onclick="nextMonth()">➡</button>
@@ -566,6 +572,37 @@
     </div>
 </div>
 
+<!-- March Calendar -->
+<div class="calendar-container" id="marchCalendar">
+    <div class="header">
+        <h1>March 2026</h1>
+        <p>24/7 Staff Schedule</p>
+    </div>
+
+    <div class="content">
+        <div class="calendar-nav">
+            <button class="back-btn" onclick="showLanding()">Home</button>
+
+            <div class="month-nav-center">
+                <button class="nav-btn prev" onclick="prevMonth()">⬅</button>
+
+                <select class="month-select" onchange="jumpToMonth(this.value)">
+                    <option value="january">January 2026</option>
+                    <option value="february">February 2026</option>
+                     <option value="march">March 2026</option>
+                </select>
+
+                <button class="nav-btn next" onclick="nextMonth()">➡</button>
+            </div>
+        </div>
+
+        <div class="calendar-wrapper">
+            <div class="calendar" id="marCalendarGrid"></div>
+        </div>
+    </div>
+</div>
+
+
 
 
   <script>
@@ -573,7 +610,7 @@
    MONTH NAVIGATION LOGIC
 ========================= */
 
-const months = ['january', 'february'];
+const months = ['january', 'february', 'march'];
 let currentMonthIndex = 0;
 
 function showMonthByIndex(index) {
@@ -690,6 +727,40 @@ const februaryData = [
     { date: 28, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' }
 ];
 
+const marchData = [
+    { date: 1, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' },
+    { date: 2, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' },
+    { date: 3, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 4, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 5, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 6, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 7, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 8, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 9, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
+    { date: 10, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
+    { date: 11, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' },
+    { date: 12, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' },
+    { date: 13, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 14, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 15, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 16, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 17, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 18, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 19, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
+    { date: 20, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
+    { date: 21, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' },
+    { date: 22, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' },
+    { date: 23, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 24, off: 'RV', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 25, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 26, off: 'Junry', s1: 'RV', s2: 'Chabi', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 27, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 28, off: 'Chabi', s1: 'Junry', s2: 'RV', s3: 'Cinco', s4: 'Bro2x' },
+    { date: 29, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
+    { date: 30, off: 'Cinco', s1: 'Junry', s2: 'Chabi', s3: 'RV', s4: 'Bro2x' },
+    { date: 31, off: 'Bro2x', s1: 'Junry', s2: 'Chabi', s3: 'Cinco', s4: 'RV' }
+];
+
 /* =========================
    CALENDAR GENERATION
 ========================= */
@@ -732,6 +803,7 @@ function generateCalendar(containerId, data, startDay) {
 
 generateCalendar('janCalendarGrid', januaryData, 4);
 generateCalendar('febCalendarGrid', februaryData, 0);
+generateCalendar('marCalendarGrid', marchData, 0);
 </script>
 
 </body>
