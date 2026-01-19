@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24/7 Staff Schedule Calendar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .shift-legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+
+        .shift-legend span {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: #e0e0e0;
+            padding: 1px;
+        }
+
+        .day-header {
+            background: #4a5568;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.95em;
+        }
+
+        .day-cell {
+            background: white;
+            min-height: 160px;
+            padding: 10px;
+            position: relative;
+        }
+
+        .day-cell.empty {
+            background: #f7fafc;
+        }
+
+        .date-number {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .shift {
+            margin: 5px 0;
+            padding: 6px 8px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .shift-label {
+            font-weight: 600;
+            font-size: 0.75em;
+        }
+
+        .shift-name {
+            font-weight: 500;
+        }
+
+        .shift.s1 {
+            background: #fef3c7;
+            color: #92400e;
+            border-left: 3px solid #f59e0b;
+        }
+
+        .shift.s2 {
+            background: #dbeafe;
+            color: #1e40af;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .shift.s3 {
+            background: #e0e7ff;
+            color: #3730a3;
+            border-left: 3px solid #6366f1;
+        }
+
+        .shift.s4 {
+            background: #f3e8ff;
+            color: #6b21a8;
+            border-left: 3px solid #a855f7;
+        }
+
+        .off-day {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 6px 8px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            font-weight: 600;
+            text-align: center;
+            border-left: 3px solid #dc2626;
+        }
+
+        @media (max-width: 1024px) {
+            .calendar {
+                grid-template-columns: repeat(7, 1fr);
+                gap: 2px;
+            }
+            
+            .day-cell {
+                min-height: 140px;
+                padding: 8px;
+            }
+            
+            .shift {
+                font-size: 0.75em;
+                padding: 4px 6px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5em;
+            }
+            
+            .shift-legend {
+                font-size: 0.8em;
+            }
+            
+            .day-cell {
+                min-height: 120px;
+                padding: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>24/7 Staff Schedule - February 2026</h1>
+            <div class="shift-legend">
+                <span>S1: 6AM-12NN</span>
+                <span>S2: 12NN-6PM</span>
+                <span>S3: 6PM-12MN</span>
+                <span>S4: 12MN-6AM</span>
+            </div>
+        </div>
+        
+        <div class="calendar">
+            <div class="day-header">Sunday</div>
+            <div class="day-header">Monday</div>
+            <div class="day-header">Tuesday</div>
+            <div class="day-header">Wednesday</div>
+            <div class="day-header">Thursday</div>
+            <div class="day-header">Friday</div>
+            <div class="day-header">Saturday</div>
+
+            <div class="day-cell">
+                <div class="date-number">1</div>
+                <div class="off-day">OFF: RV</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">Junry</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">Chabi</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">Cinco</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">2</div>
+                <div class="off-day">OFF: RV</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">Junry</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">Chabi</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">Cinco</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">3</div>
+                <div class="off-day">OFF: Junry</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">RV</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">Chabi</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">Cinco</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">4</div>
+                <div class="off-day">OFF: Junry</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">RV</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">Chabi</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">Cinco</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">5</div>
+                <div class="off-day">OFF: Chabi</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">Junry</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">RV</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">Cinco</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">6</div>
+                <div class="off-day">OFF: Chabi</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">Junry</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">RV</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">Cinco</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">7</div>
+                <div class="off-day">OFF: Cinco</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">Junry</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">Chabi</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">RV</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">8</div>
+                <div class="off-day">OFF: Cinco</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">Junry</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">Chabi</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">RV</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">9</div>
+                <div class="off-day">OFF: Bro2x</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">Junry</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">Chabi</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">Cinco</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">RV</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">10</div>
+                <div class="off-day">OFF: Bro2x</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">Junry</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">Chabi</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">Cinco</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">RV</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">11</div>
+                <div class="off-day">OFF: RV</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">Junry</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">Chabi</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">Cinco</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">12</div>
+                <div class="off-day">OFF: RV</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">Junry</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">Chabi</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">Cinco</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">13</div>
+                <div class="off-day">OFF: Junry</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">RV</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">Chabi</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">Cinco</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">14</div>
+                <div class="off-day">OFF: Junry</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">RV</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">Chabi</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">Cinco</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">15</div>
+                <div class="off-day">OFF: Chabi</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">Junry</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">RV</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">Cinco</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">16</div>
+                <div class="off-day">OFF: Chabi</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">Junry</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">RV</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">Cinco</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">17</div>
+                <div class="off-day">OFF: Cinco</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">Junry</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">Chabi</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">RV</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">18</div>
+                <div class="off-day">OFF: Cinco</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">Junry</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">Chabi</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">RV</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">19</div>
+                <div class="off-day">OFF: Bro2x</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">Junry</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">Chabi</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">Cinco</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">RV</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">20</div>
+                <div class="off-day">OFF: Bro2x</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">Junry</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">Chabi</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">Cinco</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">RV</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">21</div>
+                <div class="off-day">OFF: RV</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">Junry</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">Chabi</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">Cinco</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">22</div>
+                <div class="off-day">OFF: RV</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">Junry</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">Chabi</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">Cinco</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">23</div>
+                <div class="off-day">OFF: Junry</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">RV</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">Chabi</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">Cinco</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">24</div>
+                <div class="off-day">OFF: Junry</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">RV</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">Chabi</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">Cinco</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">25</div>
+                <div class="off-day">OFF: Chabi</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">Junry</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">RV</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">Cinco</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">26</div>
+                <div class="off-day">OFF: Chabi</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">Junry</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">RV</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">Cinco</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">27</div>
+                <div class="off-day">OFF: Cinco</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">Junry</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">Chabi</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">RV</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+
+            <div class="day-cell">
+                <div class="date-number">28</div>
+                <div class="off-day">OFF: Cinco</div>
+                <div class="shift s1"><span class="shift-label">S1:</span> <span class="shift-name">Junry</span></div>
+                <div class="shift s2"><span class="shift-label">S2:</span> <span class="shift-name">Chabi</span></div>
+                <div class="shift s3"><span class="shift-label">S3:</span> <span class="shift-name">RV</span></div>
+                <div class="shift s4"><span class="shift-label">S4:</span> <span class="shift-name">Bro2x</span></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
